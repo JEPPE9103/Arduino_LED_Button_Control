@@ -1,0 +1,62 @@
+#define LED_RED 13
+#define LED_GREEN 12
+#define LED_BLUE 11
+#define BUTTON_RED 2
+#define BUTTON_GREEN 3
+#define POTENTIOMETER A0
+
+bool ledRedState = false;
+bool ledGreenState = false;
+
+unsigned long lastDebounceTimeRed = 0;  
+unsigned long lastDebounceTimeGreen = 0;
+unsigned long debounceDelay = 50;      
+
+void setup() {
+  pinMode(LED_RED, OUTPUT);
+  pinMode(LED_GREEN, OUTPUT);
+  pinMode(LED_BLUE, OUTPUT);
+  pinMode(BUTTON_RED, INPUT_PULLUP);
+  pinMode(BUTTON_GREEN, INPUT_PULLUP);
+  pinMode(POTENTIOMETER, INPUT);
+
+  Serial.begin(9600);
+}
+
+void loop() {
+  if (millis() - lastDebounceTimeRed > debounceDelay) {
+    if (digitalRead(BUTTON_RED) == LOW) {
+      ledRedState = !ledRedState;
+      digitalWrite(LED_RED, ledRedState);
+    }
+    lastDebounceTimeRed = millis();
+  }
+
+  if (millis() - lastDebounceTimeGreen > debounceDelay) {
+    if (digitalRead(BUTTON_GREEN) == LOW) {
+      ledGreenState = !ledGreenState;
+      digitalWrite(LED_GREEN, ledGreenState);
+    }
+    lastDebounceTimeGreen = millis();
+  }
+
+  int potValue = analogRead(POTENTIOMETER);
+  int pwmValue = map(potValue, 0, 1023, 0, 255);
+  analogWrite(LED_BLUE, pwmValue);
+
+ 
+  float current = (potValue * 5.0) / 1023.0 / 220.0; /
+  float voltage = current * 220.0;
+
+  
+  Serial.print("ADC-värde: ");
+  Serial.print(potValue);
+  Serial.print(" | PWM-värde: ");
+  Serial.print(pwmValue);
+  Serial.print(" | Ström: ");
+  Serial.print(current);
+  Serial.print(" A | Spänning: ");
+  Serial.println(voltage);
+
+  delay(300);
+}
