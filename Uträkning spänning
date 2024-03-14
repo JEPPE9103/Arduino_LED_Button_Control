@@ -1,0 +1,5 @@
+V: 5V (spänningsmatning)
+R: 220Ω
+Vf: 2,5V (LED framspänning)
+I = (5V - 2,5V) / 220Ω = 0.011363636363636364 A ≈ 11.4mA
+I_total = 11.4 mA + 11.4 mA + 11.4 mA = 34.2 mA
