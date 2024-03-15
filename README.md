@@ -18,6 +18,5 @@ Detta repository innehåller koden för varje deluppgift
 ### DELUPPGIFT 4: INTERRUPTS
 6. Använder interrupts för att hantera tryckknappar och tända/släcka lysdioder.
 
-## Instruktioner för att köra koden
-För att köra koden för varje deluppgift, byt till motsvarande gren i Git-repositoryn och följ instruktionerna i dess README-fil.
+
 
